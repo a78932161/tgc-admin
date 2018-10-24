@@ -1,0 +1,23 @@
+query RoleList($paginator: paginator){
+  RoleList(paginator:$paginator){
+    totalPages
+    totalElements
+    content{
+      id
+      name
+      number
+      createtime
+      privilegeItems{
+        id
+        constraintRule
+        privilege{
+          id
+          name
+          number
+          privilege
+          category
+        }
+      }
+    }
+  }
+}

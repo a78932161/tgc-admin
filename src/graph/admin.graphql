@@ -1,0 +1,42 @@
+query findAdministList($namelike:String!,$paginator: paginator){
+  AdministList(qfilter:{
+    combinator:AND
+    key:"name"
+    operator:LIKE
+    value:$namelike
+  },paginator:$paginator){
+    totalPages
+    totalElements
+    content{
+      id
+      number
+      name
+      username
+      tel
+      disabled
+      password
+      updatetime(OrderBy:DESC)
+      createtime(OrderBy:DESC)
+    }
+  }
+}
+
+mutation addAdminist($administ: Administ_!){
+  mlshop_addadminist(administ: $administ){
+     id
+  }
+}
+
+mutation editAdminist($administ: Administ_!){
+  mlshop_updateadminist(administ: $administ){
+    id
+  }
+}
+
+mutation editAdministPassWord($administ: Administ_!){
+  mlshop_administmodifypassword(administ: $administ){
+    id
+  }
+}
+
+
