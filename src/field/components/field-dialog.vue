@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="showFlag">
+  <el-dialog :title="title" :visible.sync="showFlag" v-if="showFlag">
     <slot></slot>
     <div slot="footer" class="dialog-footer">
       <el-button @click="showFlag = false">取 消</el-button>

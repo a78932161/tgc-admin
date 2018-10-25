@@ -68,7 +68,7 @@
         rules,
         dialogType: '',
         inlineForm: {},
-        list1: ['用户管理', '角色管理', '订单管理', '商品管理'],
+        list1: [],
         chosen: [],
         ruleList: [],
         ruleData: [],
@@ -107,7 +107,14 @@
         return disabled ? '删除' : "正常";
       },
       dialogShow(type, row) {
-        this.list1 = filterAttr(JSON.parse(JSON.stringify(this.ruleList1)));
+        this.chosen = [];
+        this.ruleData = [];
+        this.ruleList = [];
+        this.list1 = [];
+        this.ruleList1.forEach((value, index) => {
+          this.ruleList1[index] = filterAttr(value);
+        });
+        this.list1 = this.ruleList1;
         console.log(this.list1);
         this.dialogType = type;
         this.$refs.dialog.show();
@@ -117,9 +124,25 @@
         if (type === 'add') {
           this.inlineForm = {};
           return;
+        } else {
+          this.inlineForm = JSON.parse(JSON.stringify(row));
+          this.inlineForm.privilegeItems.forEach((value, index) => {
+            if (value.constraintRule != null) {
+              this.ruleData.push(value.constraintRule);
+            } else {
+              this.ruleData.push('');
+            }
+            this.list1.forEach((value1, index) => {
+              if (value.privilege.name == value1.name) {
+                this.$nextTick(() => {
+                  this.chosen.push(value1);
+                });
+              }
+            })
+          });
+          this.ruleList = this.chosen;
         }
-        this.inlineForm = JSON.parse(JSON.stringify(row));
-        console.log(this.inlineForm);
+
       },
 
       dialogConfirm() {

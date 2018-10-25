@@ -15,7 +15,7 @@
         type: String
       },
       list: {
-        type: Object
+        type: Array
       },
       chosen: {
         type: Array
