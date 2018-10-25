@@ -21,3 +21,27 @@ query RoleList($paginator: paginator){
     }
   }
 }
+
+
+query PrivilegeList($paginator: paginator){
+  PrivilegeList(paginator:$paginator){
+    totalPages
+    totalElements
+    content{
+      id
+      name
+    }
+  }
+}
+
+mutation addRole($role: Role_!){
+  role_add(role:$role){
+    id
+  }
+}
+
+mutation updateRole($role: Role_!){
+  role_update(role:$role){
+    id
+  }
+}

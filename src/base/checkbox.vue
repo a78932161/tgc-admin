@@ -4,7 +4,7 @@
     </el-checkbox>
     <div style="margin: 15px 0;"></div>
     <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-      <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+      <el-checkbox v-for="city in cities" :label="city" :key="city.id">{{city.name}}</el-checkbox>
     </el-checkbox-group>
   </div>
 </template>
@@ -15,7 +15,7 @@
         type: String
       },
       list: {
-        type: Array
+        type: Object
       },
       chosen: {
         type: Array

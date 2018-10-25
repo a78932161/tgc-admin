@@ -37,6 +37,12 @@
         <el-form-item label="权限" label-width="120px">
           <checkbox1 all="全选" :list="list1" :chosen="chosen" @dataList="dataList"></checkbox1>
         </el-form-item>
+        <el-form-item label=约束规则 label-width="120px">
+          <el-input placeholder="请输入规则" v-for="(item, index) in ruleList" :key="index" v-model="ruleData[index]">
+            <template slot="prepend">{{item.name}}</template>
+          </el-input>
+        </el-form-item>
+
       </form-container>
     </field-dialog>
 
@@ -64,6 +70,8 @@
         inlineForm: {},
         list1: ['用户管理', '角色管理', '订单管理', '商品管理'],
         chosen: [],
+        ruleList: [],
+        ruleData: [],
       }
     },
     mixins: [historyPageMixin],
@@ -71,6 +79,9 @@
       list() {//loadingKey
         //created的时候会执行一次，context代表的是vm对象，调试时可以查阅代码：vue-apollo.esm.js:  options = options.call(context)
         return this.getEntityQuery(api.RoleList);
+      },
+      ruleList1() {
+        return this.getEntityQuery(api.PrivilegeList);
       }
     },
     computed: {
@@ -82,9 +93,11 @@
       }
     },
 
+
     methods: {
       dataList(data) {
         console.log(data);
+        this.ruleList = data;
       },
       formatTime(time) {
         if (time == null) return;
@@ -94,6 +107,8 @@
         return disabled ? '删除' : "正常";
       },
       dialogShow(type, row) {
+        this.list1 = filterAttr(JSON.parse(JSON.stringify(this.ruleList1)));
+        console.log(this.list1);
         this.dialogType = type;
         this.$refs.dialog.show();
         this.$nextTick(() => {    //dialog框出现以后，进行清空验证
@@ -104,12 +119,23 @@
           return;
         }
         this.inlineForm = JSON.parse(JSON.stringify(row));
-        this.inlineForm.password = '';
+        console.log(this.inlineForm);
       },
 
       dialogConfirm() {
-        this.$refs.inlineForm.gqlValidate(this.dialogType === 'add' ? api.addAdminist : api.editAdministPassWord, {
-          administ: filterAttr(this.inlineForm, 'repeatPassword')
+        this.inlineForm['privilegeItems'] = [];
+        this.ruleList.forEach((value, index) => {
+          let a = {
+            constraintRule: this.ruleData[index],
+            privilege: {
+              id: value.id,
+            }
+          };
+          this.inlineForm['privilegeItems'].push(a);
+        });
+        console.log(this.inlineForm);
+        this.$refs.inlineForm.gqlValidate(this.dialogType === 'add' ? api.addRole : api.updateRole, {
+          role: this.inlineForm
         }, () => {
           this.callback(`${this.title}成功`);
           this.$refs.dialog.hide();
