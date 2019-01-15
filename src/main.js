@@ -10,7 +10,7 @@ import store from './store'
 import '@/icons' // icon
 import VueQuillEditor from 'vue-quill-editor'
 
-import '@/permission' // permission control
+// import '@/permission' // permission control
 
 Vue.use(ElementUI);
 Vue.use(VueQuillEditor)
