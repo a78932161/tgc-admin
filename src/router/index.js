@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+/* Layout */
+import Layout from 'components/layout/Layout'
 
 const _import = require('./_import_' + process.env.NODE_ENV)
 
 Vue.use(Router);
-
-/* Layout */
-import Layout from 'components/layout/Layout'
 
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -34,27 +33,6 @@ export const constantRouterMap = [
       path: 'dashboard',
       component: _import('dashboard/index')
     }]
-  },
-  {
-    path: '/qx',
-    component: Layout,
-    redirect: '/qx/index',
-    name: 'qx',
-    meta: {title: '权限', icon: 'example'},
-    children: [
-      {
-        path: 'test',
-        name: 'storeAdminTest',
-        component: _import('permission/index'),
-        meta: {title: '权限', icon: '店铺'}
-      },
-      {
-        path: 'store',
-        name: 'store',
-        component: _import('permission/role'),
-        meta: {title: '角色', icon: 'table'},
-      },
-    ]
   },
 
 
@@ -389,8 +367,6 @@ export const constantRouterMap = [
   //   ]
   // },
 
-
-  {path: '*', redirect: '/404', hidden: true}
 ];
 
 export default new Router({
@@ -399,3 +375,74 @@ export default new Router({
   routes: constantRouterMap
 })
 
+export const asyncRouterMap = [
+  {
+    path: '/qx',
+    component: Layout,
+    redirect: '/qx/test',
+    name: 'qx',
+    meta: {title: '权限', icon: '权限', roles: ['A1', 'B1']},
+    children: [
+      {
+        path: 'test',
+        name: 'storeAdminTest',
+        component: _import('permission/index'),
+        meta: {title: '角色', icon: '权限设置', roles: ['A1']},
+
+      },
+      {
+        path: 'store',
+        name: 'store',
+        component: _import('permission/role'),
+        meta: {title: '账号', icon: '账号', roles: ['B1']},
+      },
+    ]
+  },
+  {
+    path: '/car',
+    component: Layout,
+    redirect: '/car/index',
+    name: 'car',
+    meta: {title: '车辆', icon: '车辆'},
+    children: [
+      {
+        path: 'index',
+        name: 'carIndex',
+        component: _import('car/index'),
+        meta: {title: '车辆', icon: '车辆'},
+      }
+    ],
+  },
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop/index',
+    name: 'shop',
+    meta: {title: '门店', icon: '门店'},
+    children: [
+      {
+        path: 'index',
+        name: 'shopIndex',
+        component: _import('shop/index'),
+        meta: {title: '门店', icon: '门店'},
+      }
+    ],
+  },
+  {
+    path: '/client',
+    component: Layout,
+    redirect: '/client/index',
+    name: 'client',
+    meta: {title: '客户', icon: '客户'},
+    children: [
+      {
+        path: 'index',
+        name: 'clientIndex',
+        component: _import('client/index'),
+        meta: {title: '客户', icon: '客户'},
+      }
+    ],
+  },
+
+  {path: '*', redirect: '/404', hidden: true}
+]

@@ -25,15 +25,15 @@ let config = {
 const service = axios.create({
   baseURL, // api的base_url
   timeout: 15000, // 请求超时时间
-  withCredentials: true
+  // withCredentials: true
 });
 
 // request拦截器
 service.interceptors.request.use(config => {
+  console.log(config)
   if (config.headers['Content-Type'] === "application/x-www-form-urlencoded") {
     config.data = qs.stringify(config.data);
   }
-  console.log(getToken());
   if (getToken()) {
     config.headers[tokenName] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
@@ -49,8 +49,7 @@ service.interceptors.response.use(response => {
     /**
      * code为非20000是抛错 可结合自己业务进行修改
      */
-
-
+    console.log(response)
     let token = response.headers[tokenName];
     if (token) {
       setToken(token);
@@ -86,7 +85,7 @@ service.interceptors.response.use(response => {
      }*/
   },
   error => {
-    console.log('err' + error)// for debug
+    console.log('err' + error) // for debug
     let errcode = String(error);
     if (errcode.indexOf('401') > 0) {
       if (location.href === config.loginUrl) {    /*登陆页面401错误，提示用户名或者密码错误*/
@@ -95,7 +94,6 @@ service.interceptors.response.use(response => {
         });
       }
       else {
-
         Message.error({
           message: '超时'
         });
