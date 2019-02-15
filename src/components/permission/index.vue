@@ -38,7 +38,7 @@
           <checkbox1 all="全选" :list="list1" :chosen="chosen" @dataList="dataList"></checkbox1>
         </el-form-item>
         <el-form-item label=约束规则 label-width="120px">
-          <el-input placeholder="请输入规则" v-for="(item, index) in ruleList" :key="index" v-model="ruleData[index]">
+          <el-input placeholder="请输入规则" v-for="(item, index) in ruleList" :key="index" v-model="ruleData[index]" class="qx-input">
             <template slot="prepend">{{item.name}}</template>
           </el-input>
         </el-form-item>
@@ -176,4 +176,9 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+  .qx-input{
+    margin-bottom: 20px;
+  }
 
+</style>

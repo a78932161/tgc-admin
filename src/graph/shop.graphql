@@ -1,0 +1,61 @@
+query getStoreList($paginator: paginator!) {
+  StoreList(paginator: $paginator) {
+    totalPages
+    totalElements
+    content {
+      people
+      updatetime
+      createtime
+      latitude
+      disabled
+      img
+      name
+      updateactorid
+      id
+      phone
+      number
+      longitude
+      createactorid
+      address
+    }
+  }
+}
+
+
+mutation store_add($store: Store_!) {
+  store_add(store: $store) {
+    id
+  }
+}
+
+mutation admin_storeAdministrator($admin: Admin_!) {
+  admin_storeAdministrator(admin: $admin) {
+    id
+  }
+}
+
+mutation store_modify($store: Store_!) {
+  store_modify(store: $store) {
+    id
+  }
+}
+
+query getStore($id: String!) {
+  Store(id: $id) {
+    people
+    updatetime
+    createtime
+    latitude
+    disabled
+    img
+    name
+    updateactorid
+    id
+    phone
+    number
+    longitude
+    createactorid
+    address
+  }
+}
+

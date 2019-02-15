@@ -410,7 +410,14 @@ export const asyncRouterMap = [
         name: 'carIndex',
         component: _import('car/index'),
         meta: {title: '车辆', icon: '车辆'},
-      }
+      },
+      {
+        path: 'carInfo',
+        name: 'carInfo',
+        component: _import('car/carInfo'),
+        meta: {title: '车辆', icon: '车辆'},
+        hidden: true,
+      },
     ],
   },
   {
@@ -425,6 +432,13 @@ export const asyncRouterMap = [
         name: 'shopIndex',
         component: _import('shop/index'),
         meta: {title: '门店', icon: '门店'},
+      },
+      {
+        path: 'shop',
+        name: 'shop',
+        component: _import('shop/shop'),
+        meta: {title: '门店', icon: '门店'},
+        hidden: true,
       }
     ],
   },

@@ -1,83 +1,35 @@
-query CarSourceList($namelike:String!,$paginator: paginator)
-{
-  CarSourceList(qfilter:{
-    key:"disabled",
-    operator:EQUEAL
-    value:"true"
-    combinator:OR,
-    next:{
-      combinator:AND
-      key:"name"
-      operator:LIKE
-      value:$namelike
-    }
-  },paginator: $paginator){
+query getCarInfoList($paginator: paginator!)  {
+  CarInfoList(paginator: $paginator) {
     totalPages
     totalElements
-    content{
-      address
-      type
-      number
+    content {
       id
-      name
-      tel
+      upperShelf
+      updateactorid
       disabled
-      updatetime(OrderBy:DESC)
-      createtime(OrderBy:DESC)
+      img
+      financialSchemes {
+        monthly
+        id
+        downPayment
+        periods
+      }
+      sort
+      brand
+      updatetime
+      number
+      model
+      createtime
+      price
+      createactorid
+      name
+      filename
     }
-  }}
-
-query CarSource($id:String!)
-{
-  CarSource(id:$id){
-    address
-    type
-    number
-    id
-    name
-    tel
-    disabled
-    createtime
   }
 }
 
-
-mutation editCarSourceDisabled($carsource: CarSource_!){
-  mlshop_disablecarsource(carsource: $carsource){
-    id
-  }
-}
-
-mutation enableCarSourceDisabled($carsource: CarSource_!){
-  mlshop_enablcarsource(carsource: $carsource){
-    id
-  }
-}
-
-
-
-
-
-
-
-mutation addCar($carsource: CarSource_!){
-  mlshop_addcarsource(carsource: $carsource){
-    id
-  }
-}
-
-
-mutation editCar($carsource: CarSource_!){
-  mlshop_updatecarsource(carsource: $carsource){
-    id
-  }
-}
-
-
-
-
-mutation enabled($carsource: CarSource_!){
-  mlshop_enablcarsource(carsource: $carsource){
-    disabled
+mutation carInfo_add($carInfo: CarInfo_!) {
+  carInfo_add(carInfo: $carInfo) {
+  id
   }
 }

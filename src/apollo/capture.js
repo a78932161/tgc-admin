@@ -5,10 +5,10 @@ import {removeToken} from 'common/js/auth';
 import store from '../store'
 
 
-function capture(error){
-
-  let statusCode=error.networkError.statusCode;
-  switch (statusCode){
+function capture(error) {
+  console.log(error);
+  let statusCode = error.networkError.statusCode;
+  switch (statusCode) {
     case 401:
       store.commit('SET_TOKEN', '');
       store.commit('SET_ROLES', []);

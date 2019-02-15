@@ -1,0 +1,30 @@
+query getCustomerList($paginator: paginator!,) {
+  CustomerList(paginator: $paginator) {
+    totalPages
+    totalElements
+    content {
+      name
+      id
+      updateactorid
+      disabled
+      invitedId
+      store{
+        id
+        name
+      }
+      phone
+      integral
+      gender
+      nickname
+      updatetime
+      salesConsultantAdmin{
+        id
+        name
+      }
+      number
+      openid
+      createtime
+      createactorid
+    }
+  }
+}

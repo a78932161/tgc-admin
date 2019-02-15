@@ -33,7 +33,7 @@ query RoleList{
 }
 
 mutation administUpdate($administ:Administ_!){
-  	administ_update(administ:$administ){
+  administ_update(administ:$administ){
     id
   }
 }
@@ -51,7 +51,7 @@ query PrivilegeList($paginator: paginator){
 
 
 query AdministList($paginator: paginator){
-  	AdministList(paginator:$paginator){
+  AdministList(paginator:$paginator){
     totalPages
     totalElements
     content{
@@ -74,7 +74,7 @@ query AdministList($paginator: paginator){
 
 mutation addAdminist($administ: Administ_!){
   administ_add(administ: $administ){
-     id
+    id
   }
 }
 
@@ -89,5 +89,3 @@ mutation editAdministPassWord($administ: Administ_!){
     id
   }
 }
-
-
